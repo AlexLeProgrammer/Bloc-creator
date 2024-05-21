@@ -4,22 +4,88 @@
     <meta charset="UTF-8">
     <title>Bloc-creator | Créateur</title>
     <style>
-        body {
-            margin: 0;
-            width: 100vw;
-            height: 100vh;
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            font-family: Inter, sans-serif;
+            font-size: 1.5em;
+        }
+
         canvas {
-            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-image: url("img/spray-wall.jpg");
+        }
+
+        ul {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            user-select: none;
+        }
+
+        li:hover:not(.selected) {
+            border: 2px solid #cdcdcd;
+        }
+
+        li:active:not(.selected) {
+            background-color: #8e8d8d;
+        }
+
+        .selected {
+            border: 5px solid #2858ff;
+        }
+
+        li > div {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50px;
         }
     </style>
 </head>
 <body>
     <canvas class="display"></canvas>
+    <ul>
+        <li class="start selected" onclick="selectColor('start')"><div style="background-color: #3ae100"></div>Start</li>
+        <li class="top" onclick="selectColor('top')"><div style="background-color: #df39e3"></div>Top</li>
+        <li class="hold" onclick="selectColor('hold')"><div style="background-color: #15b3a9"></div>Prise</li>
+        <li class="foot" onclick="selectColor('foot')"><div style="background-color: #ffe500"></div>Pied uniquement</li>
+        <li class="hand" onclick="selectColor('hand')"><div style="background-color: #ef0000"></div>Main uniquement</li>
+    </ul>
     <script src="js/creator.js"></script>
+    <script>
+        function selectColor(classText) {
+            document.querySelector(".selected").classList.remove("selected");
+            document.querySelector("."+classText).classList.add("selected");
+        }
+    </script>
 </body>
 </html>

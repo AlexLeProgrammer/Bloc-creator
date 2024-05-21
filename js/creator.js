@@ -11,6 +11,21 @@ const CTX = CANVAS.getContext("2d");
 // Get the spray-wall image
 const SPRAY_WALL_IMG = new Image();
 SPRAY_WALL_IMG.src = "../img/spray-wall.jpg";
+SPRAY_WALL_IMG.onload = () => {
+    // Set the size of the canvas
+    CANVAS.width = SPRAY_WALL_IMG.width;
+    CANVAS.height = SPRAY_WALL_IMG.height;
+}
+
+// Color palette
+const COLOR_START = "#3ae100";
+const COLOR_TOP = "#df39e3";
+const COLOR_HOLD = "#15b3a9";
+const COLOR_FOOT = "#ffe500";
+const COLOR_HAND = "#ef0000";
+
+// Holds
+const HOLD_RADIUS = 20;
 
 //#endregion
 
@@ -19,30 +34,33 @@ SPRAY_WALL_IMG.src = "../img/spray-wall.jpg";
 // Mouse
 let mousePosition = {x: 0, y: 0};
 
+// Data of the boulder
+let boulderData = [];
+let selectedColor = document.querySelector(".selected > div").style.backgroundColor;
+
 //#enregion
 
 // Loop for things that we do and redo
 setInterval(() => {
-    //#region Responsive
+    // Clear the canvas
+    CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
 
-    // Adapt the height of the canvas
-    CANVAS.height = window.innerHeight;
+    // Set the active color
+    selectedColor = document.querySelector(".selected > div").style.backgroundColor;
 
-    // Draw the image
-    if (SPRAY_WALL_IMG.width * (window.innerHeight / SPRAY_WALL_IMG.height) < window.innerWidth) {
-        CANVAS.width = SPRAY_WALL_IMG.width * (window.innerHeight / SPRAY_WALL_IMG.height);
-        CTX.drawImage(SPRAY_WALL_IMG, 0, 0, SPRAY_WALL_IMG.width * (window.innerHeight / SPRAY_WALL_IMG.height), window.innerHeight);
-    } else {
-        CANVAS.width = window.innerWidth;
-        CTX.drawImage(SPRAY_WALL_IMG, 0, 0, window.innerWidth, SPRAY_WALL_IMG.height * (window.innerWidth / SPRAY_WALL_IMG.width));
+    // Draw the holds
+    CTX.lineWidth = 5 * (CANVAS.width / CANVAS.getBoundingClientRect().width);
+    for (const HOLD of boulderData) {
+        CTX.strokeStyle = HOLD.color;
+        CTX.beginPath();
+        CTX.arc(HOLD.x, HOLD.y, HOLD_RADIUS * (CANVAS.width / CANVAS.getBoundingClientRect().width), 0, 2 * Math.PI);
+        CTX.closePath();
+        CTX.stroke();
     }
-
-    //#endregion
-
 
     // Draw the mouse position
     CTX.fillStyle = "red";
-    CTX.fillRect(mousePosition.x - 5, mousePosition.y - 5, 10, 10);
+    CTX.fillRect(mousePosition.x - 40, mousePosition.y - 40, 80, 90);
 
 });
 
@@ -51,8 +69,13 @@ setInterval(() => {
 // Event when the mouse is moved
 document.addEventListener("mousemove", (e) => {
     // Get the position of the mouse
-    mousePosition.x = e.clientX - CANVAS.offsetLeft;
-    mousePosition.y = e.clientY;
+    mousePosition.x = e.clientX * (CANVAS.width / CANVAS.getBoundingClientRect().width) - CANVAS.offsetLeft * (CANVAS.width / CANVAS.getBoundingClientRect().width);
+    mousePosition.y = e.clientY * (CANVAS.height / CANVAS.getBoundingClientRect().height);
+});
+
+// Add holds
+document.addEventListener("mousedown", () => {
+    boulderData.push({color:selectedColor, x:mousePosition.x, y:mousePosition.y});
 });
 
 //#endregion
