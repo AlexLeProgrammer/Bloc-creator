@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+
+    font-family: Inter, sans-serif;
+
+    --background-color: white;
+    --text-color: black;
+    --searchbar-background: #eeeeef;
+    --searchbar-text: #838388;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+#boulders a {
+    display: grid;
+    width: 100%;
+    text-decoration: none;
+    color: var(--text-color);
+    grid-template-columns: fit-content(100%) auto fit-content(100%);
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 1rem;
+}
+
+#boulders a img {
+    aspect-ratio: 1;
+    height: 3rem;
+}
+
+#boulders a p {
+    margin: 0;
+}
+
+#boulders a div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#boulders a .title {
+    font-weight: bold;
+}
+
+#boulders a .date {
+    width: fit-content;
+}
+
+#boulders a .routesetter {
+    grid-column-start: 2;
+}
