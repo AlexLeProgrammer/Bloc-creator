@@ -39,7 +39,9 @@
             list-style-type: none;
         }
 
-        li {
+        li, input, button {
+            font-family: Inter, sans-serif;
+            font-size: 1.5em;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -49,13 +51,14 @@
             border: 2px solid #000000;
             border-radius: 5px;
             user-select: none;
+            background-color: white;
         }
 
-        li:hover:not(.selected) {
+        li:hover:not(.selected), button:hover, input:hover {
             border: 2px solid #cdcdcd;
         }
 
-        li:active:not(.selected) {
+        li:active:not(.selected), button:active {
             background-color: #8e8d8d;
         }
 
@@ -69,6 +72,24 @@
             background-color: red;
             border-radius: 50px;
         }
+
+        button {
+            width: 20%;
+            align-self: flex-start;
+            margin-left: 10%;
+        }
+
+        #edit {
+            width: 10%;
+        }
+
+        button img {
+            width: 100%;
+        }
+
+        #name, #save {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -79,6 +100,9 @@
         <li class="hold" onclick="selectColor('hold')"><div style="background-color: #15b3a9"></div>Prise</li>
         <li class="foot" onclick="selectColor('foot')"><div style="background-color: #ffe500"></div>Pied uniquement</li>
         <li class="hand" onclick="selectColor('hand')"><div style="background-color: #ef0000"></div>Main uniquement</li>
+        <input id="name" type="text" placeholder="Nom du bloc">
+        <button id="save">Enregistrer</button>
+        <button id="edit"><img src="img/edit.svg"></button>
     </ul>
     <script src="js/creator.js"></script>
     <script>

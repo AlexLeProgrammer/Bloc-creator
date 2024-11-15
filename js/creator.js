@@ -24,8 +24,22 @@ const COLOR_HOLD = "#15b3a9";
 const COLOR_FOOT = "#ffe500";
 const COLOR_HAND = "#ef0000";
 
+// Input and button
+const INPUT_NAME = document.querySelector("#name");
+const BUTTON_SAVE = document.querySelector("#save");
+const BUTTON_EDIT = document.querySelector("#edit");
+
 // Holds
 const HOLD_RADIUS = 200;
+
+// Mode of the page
+const MODE = new URLSearchParams(window.location.search).get("m");
+switch (MODE) {
+    case "e":
+        INPUT_NAME.style.display = "unset";
+        BUTTON_SAVE.style.display = "unset";
+        BUTTON_EDIT.style.display = "none";
+}
 
 //#endregion
 
@@ -49,7 +63,7 @@ setInterval(() => {
     selectedColor = document.querySelector(".selected > div").style.backgroundColor;
 
     // Draw the holds
-    CTX.lineWidth = 2 * (CANVAS.width / CANVAS.getBoundingClientRect().width);
+    CTX.lineWidth = 5 * (CANVAS.width / CANVAS.getBoundingClientRect().width);
     for (const HOLD of boulderData) {
         CTX.strokeStyle = HOLD.color;
         CTX.beginPath();
@@ -59,7 +73,7 @@ setInterval(() => {
     }
 
     // Draw the mouse position
-    CTX.fillStyle = "red";
+    CTX.fillStyle = "rgba(255,0,0,0.5)";
     CTX.fillRect(mousePosition.x - 40, mousePosition.y - 40, 80, 90);
 
 });
@@ -76,6 +90,10 @@ document.addEventListener("mousemove", (e) => {
 // Add holds
 document.addEventListener("mousedown", () => {
     boulderData.push({color:selectedColor, x:mousePosition.x, y:mousePosition.y});
+});
+
+BUTTON_EDIT.addEventListener("click", () => {
+   window.location.replace(window.location.href + "?m=e");
 });
 
 //#endregion
