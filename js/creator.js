@@ -25,7 +25,7 @@ const COLOR_FOOT = "#ffe500";
 const COLOR_HAND = "#ef0000";
 
 // Holds
-const HOLD_RADIUS = 20;
+const HOLD_RADIUS = 200;
 
 //#endregion
 
@@ -49,11 +49,11 @@ setInterval(() => {
     selectedColor = document.querySelector(".selected > div").style.backgroundColor;
 
     // Draw the holds
-    CTX.lineWidth = 5 * (CANVAS.width / CANVAS.getBoundingClientRect().width);
+    CTX.lineWidth = 2 * (CANVAS.width / CANVAS.getBoundingClientRect().width);
     for (const HOLD of boulderData) {
         CTX.strokeStyle = HOLD.color;
         CTX.beginPath();
-        CTX.arc(HOLD.x, HOLD.y, HOLD_RADIUS * (CANVAS.width / CANVAS.getBoundingClientRect().width), 0, 2 * Math.PI);
+        CTX.arc(HOLD.x, HOLD.y, HOLD_RADIUS * (window.innerWidth / SPRAY_WALL_IMG.width), 0, 2 * Math.PI);
         CTX.closePath();
         CTX.stroke();
     }
@@ -70,7 +70,7 @@ setInterval(() => {
 document.addEventListener("mousemove", (e) => {
     // Get the position of the mouse
     mousePosition.x = e.clientX * (CANVAS.width / CANVAS.getBoundingClientRect().width) - CANVAS.offsetLeft * (CANVAS.width / CANVAS.getBoundingClientRect().width);
-    mousePosition.y = e.clientY * (CANVAS.height / CANVAS.getBoundingClientRect().height);
+    mousePosition.y = e.clientY * (CANVAS.height / CANVAS.getBoundingClientRect().height) + scrollY * 2;
 });
 
 // Add holds
