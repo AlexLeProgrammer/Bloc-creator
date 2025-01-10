@@ -55,7 +55,7 @@ img {
 #boulders a div {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 #boulders a .title {
@@ -71,7 +71,11 @@ img {
 }
 
 header {
+    padding-bottom: 1rem;
+}
 
+main {
+    padding-bottom: 5.5rem;
 }
 
 footer {
