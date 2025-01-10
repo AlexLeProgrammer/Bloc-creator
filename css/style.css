@@ -2,6 +2,8 @@
     box-sizing: border-box;
 
     font-family: Inter, sans-serif;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     --background-color: white;
     --text-color: black;
@@ -11,6 +13,23 @@
 
 button, a {
     cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#searchbar {
+    background-color: var(--searchbar-background);
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    outline: none;
 }
 
 #boulders a {
@@ -49,4 +68,24 @@ button, a {
 
 #boulders a .routesetter {
     grid-column-start: 2;
+}
+
+header {
+
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 1rem;
+}
+
+#new-boulder {
+    aspect-ratio: 1;
+    display: block;
+    height: 3.5rem;
+    filter: drop-shadow(0 0 .5rem black);
 }
