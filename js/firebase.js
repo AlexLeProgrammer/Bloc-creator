@@ -8,12 +8,17 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 
+let boulders = [];
+
 onValue(ref(database, 'boulders'), (snapshot) => {
-  listBoulders(snapshot.val());
+  boulders = snapshot.val();
+  listBoulders(boulders);
 });
 
 document.addEventListener("boulders-search", (e) => {
-  update(ref(database), {
-    [`${e.detail.x};${e.detail.y}`]: (selectedColor === "#ffffff" ? null : selectedColor)
-  });
+  const result = boulders.filter(item =>
+    item.name.toLowerCase().includes(e.detail.toLowerCase()) ||
+    item.setter.toLowerCase().includes(e.detail.toLowerCase())
+  );
+  listBoulders(result);
 });
