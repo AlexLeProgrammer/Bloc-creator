@@ -20,11 +20,6 @@ document.querySelector('#searchbar').addEventListener('input', (e) => {
   document.dispatchEvent(new CustomEvent('boulders-search', { detail: e.target.value }));
 });
 
-const formatDate = (date) => {
-  const [year, month, day] = date.split("-");
-  return `${day}.${month}.${year}`;
-};
-
 function filterGrades(grade) {
   // Change the filtered grade
   if (grade === filteredGrade) {
