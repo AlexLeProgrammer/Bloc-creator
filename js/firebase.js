@@ -18,7 +18,7 @@ function getBoulders() {
 }
 
 onValue(ref(database, 'boulders'), (snapshot) => {
-  boulders = snapshot.val().reverse();
+  boulders = Object.values(snapshot.val()).reverse();
 
   // load home page
   if (typeof listBoulders !== 'undefined') {
@@ -27,7 +27,7 @@ onValue(ref(database, 'boulders'), (snapshot) => {
 
   // load boulder values
   if (typeof id !== 'undefined') {
-    fillValues(snapshot.val()[id]);
+    fillValues(boulders[parseInt(id)]);
   }
 });
 
