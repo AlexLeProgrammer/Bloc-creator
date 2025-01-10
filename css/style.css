@@ -93,3 +93,23 @@ footer {
     height: 3.5rem;
     filter: drop-shadow(0 0 .5rem black);
 }
+
+#filter-grades {
+    margin-top: 1rem;
+    display: flex;
+}
+
+#filter-grades button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0 1%;
+}
+
+#filter-grades button:first-child {
+    margin-left: 0;
+}
+
+#filter-grades button:last-child {
+    margin-right: 0;
+}
