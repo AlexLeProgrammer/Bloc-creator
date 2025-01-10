@@ -1,0 +1,21 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    height: 4rem;
+    aspect-ratio: 1;
+}
+
+#date {
+    opacity: .7;
+    margin-right: 1rem;
+}
+
+#image {
+    border: 1px solid black;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+}

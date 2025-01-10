@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+
+    font-family: Inter, sans-serif;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    --background-color: white;
+    --text-color: black;
+    --searchbar-background: #eeeeef;
+    --searchbar-text: #838388;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
