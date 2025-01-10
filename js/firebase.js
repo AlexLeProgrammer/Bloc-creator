@@ -10,13 +10,20 @@ export const database = getDatabase(app);
 
 let boulders = [];
 
+function getBoulders() {
+  if (filteredGrade === null) {
+    return boulders;
+  }
+  return boulders.filter(item => item.grade === filteredGrade);
+}
+
 onValue(ref(database, 'boulders'), (snapshot) => {
   boulders = snapshot.val();
-  listBoulders(boulders);
+  listBoulders(getBoulders());
 });
 
 document.addEventListener("boulders-search", (e) => {
-  const result = boulders.filter(item =>
+  const result = getBoulders().filter(item =>
     item.name.toLowerCase().includes(e.detail.toLowerCase()) ||
     item.setter.toLowerCase().includes(e.detail.toLowerCase())
   );

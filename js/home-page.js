@@ -42,4 +42,7 @@ function filterGrades(grade) {
       gradeButtons[i].style.opacity = .2;
     }
   }
+
+  // Apply filter
+  document.dispatchEvent(new CustomEvent('boulders-search', { detail: document.querySelector('#searchbar').value }));
 }
