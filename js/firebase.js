@@ -18,7 +18,7 @@ function getBoulders() {
 }
 
 onValue(ref(database, 'boulders'), (snapshot) => {
-  boulders = snapshot.val();
+  boulders = snapshot.val().reverse();
   listBoulders(getBoulders());
 });
 
