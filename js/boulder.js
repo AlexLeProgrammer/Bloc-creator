@@ -13,4 +13,6 @@ function fillValues(boulder) {
   dateText.innerText = formatDate(boulder.date);
   gradeImg.src = `images/grades/${boulder.grade}.png`;
   descText.innerHTML = boulder.desc;
+
+  document.querySelector('title').innerText = boulder.name;
 }
