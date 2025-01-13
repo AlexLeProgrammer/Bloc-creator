@@ -2,9 +2,10 @@
     background-color: var(--searchbar-background);
     border: none;
     width: 100%;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 1vw;
+    padding: 1vw 2vw;
     outline: none;
+    font-size: 3.5vw;
 }
 
 #boulders a {
@@ -13,14 +14,14 @@
     text-decoration: none;
     color: var(--text-color);
     grid-template-columns: fit-content(100%) auto fit-content(100%);
-    gap: 10px;
-    padding: 10px 0;
-    font-size: 1rem;
+    gap: 2vw;
+    padding: 2vw 0;
+    font-size: 3.5vw;
 }
 
 #boulders a img {
     aspect-ratio: 1;
-    height: 3rem;
+    height: 10.5vw;
 }
 
 #boulders a p {
@@ -46,11 +47,11 @@
 }
 
 header {
-    padding-bottom: 1rem;
+    padding-bottom: 3.5vw;
 }
 
 main {
-    padding-bottom: 5.5rem;
+    padding-bottom: 16vw;
 }
 
 footer {
@@ -59,18 +60,18 @@ footer {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 1rem;
+    bottom: 3.5vw;
 }
 
 #new-boulder {
     aspect-ratio: 1;
     display: block;
-    height: 3.5rem;
-    filter: drop-shadow(0 0 .5rem black);
+    height: 12vw;
+    filter: drop-shadow(0 0 1vw rgba(0, 0, 0, .5));
 }
 
 #filter-grades {
-    margin-top: 1rem;
+    margin-top: 3.5vw;
     display: flex;
 }
 

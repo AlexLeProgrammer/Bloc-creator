@@ -22,3 +22,7 @@ img {
 ::-webkit-scrollbar {
     display: none;
 }
+
+h1 {
+    font-size: 7.5vw;
+}
