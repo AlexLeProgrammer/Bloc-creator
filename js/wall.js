@@ -16,6 +16,10 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
     ctx.drawImage(HOLDS_SPRITE, x, y, canvas.width * zoom, canvas.height * zoom);
   }
 
+  let holdsPositions = [];
+  let startPositions = [];
+  let topPosition = {};
+
   // holds
   for (let hold of Object.keys(boulder)) {
     const holdSprite = new Image();
@@ -23,12 +27,16 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
     holdSprite.onload = () => {
       ctx.drawImage(holdSprite, x, y, canvas.width * zoom, canvas.height * zoom);
 
-      // start
+      const position = getHoldPosition(holdSprite);
+
+      holdsPositions.push(position);
+
       if (boulder[hold] === 1) {
-        const position = getHoldPosition(holdSprite);
-        console.log(position);
-        ctx.strokeRect(position.left, position.top,
-          position.right - position.left, position.bottom - position.top);
+        startPositions.push(position);
+      }
+
+      if (boulder[hold] === 2) {
+        topPosition = position;
       }
     }
   }
