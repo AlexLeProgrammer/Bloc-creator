@@ -18,20 +18,22 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
     ctx.drawImage(HOLDS_SPRITE, x, y, canvas.width * zoom, canvas.height * zoom);
   }
 
-  let holdsPositions = [];
+  let boulderPositions = [];
   let startPositions = [];
   let topPosition = {};
 
   // holds
+  let loaded = 0;
   for (let hold of Object.keys(boulder)) {
     const holdSprite = new Image();
     holdSprite.src = `./images/wall/holds/${hold}.png`;
     holdSprite.onload = () => {
       ctx.drawImage(holdSprite, x, y, canvas.width * zoom, canvas.height * zoom);
+      loaded++;
 
-      /*const position = getHoldPosition(holdSprite);
+      const position = holdsPositions[hold];
 
-      holdsPositions.push(position);
+      boulderPositions.push(position);
 
       if (boulder[hold] === 1) {
         startPositions.push(position);
@@ -39,7 +41,42 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
 
       if (boulder[hold] === 2) {
         topPosition = position;
-      }*/
+      }
+
+      if (loaded === Object.keys(boulder).length) {
+        for (pos of boulderPositions) {
+          ctx.strokeRect(pos.left, pos.top, pos.right - pos.left, pos.bottom - pos.top);
+        }
+
+        // 1 hold start
+        if (startPositions.length === 1) {
+          testedPos = {x: startPositions[0].right + 10, y: startPositions[0].bottom + 30}
+
+          while (testPosition(boulderPositions, testedPos)) {
+            testedPos.x -= 5;
+          }
+
+          ctx.fillRect(testedPos.x, testedPos.y, 70, 70);
+        }
+      }
     }
   }
+}
+
+function testPosition(holdsPos, testedPos) {
+  // Définir les limites du carré
+  const square = {
+    top: testedPos.y,
+    bottom: testedPos.y + 70,
+    left: testedPos.x,
+    right: testedPos.x + 70
+  };
+
+  // Vérifier si le carré est entièrement à l'intérieur d'un rectangle de la liste
+  return holdsPos.some(rect =>
+    square.right > rect.left &&
+    square.left < rect.right &&
+    square.bottom > rect.top &&
+    square.top < rect.bottom
+  );
 }
