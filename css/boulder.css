@@ -16,6 +16,9 @@ header img {
 }
 
 #wall {
-    border: 1px solid black;
     width: 100%;
+}
+
+#desc {
+    font-size: 4vw;
 }
