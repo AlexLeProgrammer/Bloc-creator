@@ -3,9 +3,12 @@ const formatDate = (date) => {
   return `${day}.${month}.${year}`;
 };
 
-function gradesInput(grade) {
+function gradesInput(grade, nullable = true) {
   // Change the filtered grade
   if (grade === filteredGrade) {
+    if (!nullable) {
+      return;
+    }
     filteredGrade = null;
   } else {
     filteredGrade = grade;
