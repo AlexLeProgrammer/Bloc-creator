@@ -86,17 +86,32 @@ canvas.addEventListener('click', (e) => {
 document.querySelector('#next').addEventListener('click', (e) => {
   document.querySelector('#error').style.display = 'none';
   if (step === 1 && Object.keys(boulder).length < 2) {
-    document.querySelector('#error').innerText = 'Sélectionnez au moins 2 prises'
+    document.querySelector('#error').innerText = 'Sélectionnez au moins 2 prises';
     document.querySelector('#error').style.display = 'block';
     return;
   }
   if (step === 2 && startsSelected.length === 0) {
-    document.querySelector('#error').innerText = 'Sélectionnez au moins 1 start'
+    document.querySelector('#error').innerText = 'Sélectionnez au moins 1 start';
     document.querySelector('#error').style.display = 'block';
     return;
   }
   if (step === 3 && topSelected === null) {
-    document.querySelector('#error').innerText = 'Sélectionnez un top'
+    document.querySelector('#error').innerText = 'Sélectionnez un top';
+    document.querySelector('#error').style.display = 'block';
+    return;
+  }
+  if (step === 4 && document.querySelector('#name').value === '') {
+    document.querySelector('#error').innerText = 'Entrez le nom du bloc';
+    document.querySelector('#error').style.display = 'block';
+    return;
+  }
+  if (step === 4 && document.querySelector('#setter').value === '') {
+    document.querySelector('#error').innerText = 'Entrez le nom du monteur';
+    document.querySelector('#error').style.display = 'block';
+    return;
+  }
+  if (step === 4 && filteredGrade === null) {
+    document.querySelector('#error').innerText = 'Entrez la cotation du bloc';
     document.querySelector('#error').style.display = 'block';
     return;
   }
