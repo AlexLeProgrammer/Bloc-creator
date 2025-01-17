@@ -11,6 +11,10 @@
     --searchbar-text: #838388;
 }
 
+body {
+    margin: 0 4vw;
+}
+
 button, a {
     cursor: pointer;
 }

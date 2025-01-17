@@ -14,5 +14,7 @@ function fillValues(boulder) {
   gradeImg.src = `images/grades/${boulder.grade}.png`;
   descText.innerHTML = boulder.desc;
 
-  document.querySelector('title').innerText = boulder.name;
+  document.querySelector('title').innerText = `${boulder.name} | Mémorial Phil`;
+
+  drawWall(boulder.holds);
 }

@@ -15,8 +15,10 @@ header img {
     margin-right: 3.5vw;
 }
 
-#image {
-    border: 1px solid black;
+#wall {
     width: 100%;
-    aspect-ratio: 4 / 5;
+}
+
+#desc {
+    font-size: 4vw;
 }
