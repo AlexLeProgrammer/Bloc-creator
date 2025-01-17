@@ -14,7 +14,7 @@ header div {
     width: 100%;
 }
 
-#next {
+#next, #back {
     background-color: var(--accent-color);
     outline: none;
     border: none;
@@ -23,6 +23,18 @@ header div {
     font-size: 4.5vw;
     padding: 2vw 0;
     border-radius: 1vw;
+}
+
+#back {
+    background-color: transparent;
+    outline: none;
+    border: .5vw solid var(--accent-color);
+    color: var(--accent-color);
+    width: 100%;
+    font-size: 4.5vw;
+    padding: 2vw 0;
+    border-radius: 1vw;
+    margin-top: 2vw;
 }
 
 input, textarea {

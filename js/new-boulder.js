@@ -120,10 +120,40 @@ document.querySelector('#next').addEventListener('click', (e) => {
   document.querySelector('#step-desc').innerText = DESCRIPTIONS[step - 1];
   if (step === 2) {
     drawWall(boulder, false);
+    document.querySelector('#back').style.display = 'block';
   }
   if (step === 4) {
     document.querySelector('#wall').style.display = 'none';
     document.querySelector('#fields').style.display = 'block';
     document.querySelector('#next').innerText = 'Publier';
+  }
+});
+
+document.querySelector('#back').addEventListener('click', (e) => {
+  step--;
+  document.querySelector('#step').innerText = `${step} / 4`;
+  document.querySelector('#step-desc').innerText = DESCRIPTIONS[step - 1];
+  if (step === 1) {
+    for (let hold of startsSelected) {
+      boulder[hold] = 0;
+    }
+    startsSelected = [];
+    document.querySelector('#back').style.display = 'none';
+    drawWall(boulder);
+  }
+
+  if (step === 2) {
+    if (topSelected === null) {
+      return;
+    }
+    boulder[topSelected] = 0;
+    topSelected = null;
+    drawWall(boulder, false);
+  }
+
+  if (step === 3) {
+    document.querySelector('#wall').style.display = 'block';
+    document.querySelector('#fields').style.display = 'none';
+    document.querySelector('#next').innerText = 'Suivant';
   }
 });
