@@ -43,6 +43,10 @@ p {
     margin: 0;
 }
 
+a {
+    font-size: 4vw;
+}
+
 #filter-grades {
     margin-top: 3.5vw;
     display: flex;
@@ -61,4 +65,9 @@ p {
 
 #filter-grades button:last-child {
     margin-right: 0;
+}
+
+#wall {
+    width: 100%;
+    margin: 3vw 0;
 }

@@ -29,6 +29,38 @@ header > img {
     margin-right: 3.5vw;
 }
 
-#wall {
-    width: 100%;
+#bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+#open-menu {
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+#open-menu img {
+    aspect-ratio: 1;
+    height: 5vw;
+}
+
+#menu {
+    position: absolute;
+    right: 0;
+    top: -20vw;
+
+    background-color: white;
+    padding: 2vw 0;
+    border-radius: 1vw;
+    box-shadow: 0 0 .5vw 1vw rgba(0,0,0,0.2);
+}
+
+#menu a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin: 0 5vw;
 }

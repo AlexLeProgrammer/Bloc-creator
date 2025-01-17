@@ -7,7 +7,12 @@ const dateText = document.querySelector('#date');
 const gradeImg = document.querySelector('#grade');
 const descText = document.querySelector('#desc');
 
-function fillValues(boulder) {
+let showHolds = true;
+let boulder = null;
+
+function fillValues(_boulder) {
+  boulder = _boulder;
+
   nameText.innerText = boulder.name;
   setterText.innerText = boulder.setter;
   dateText.innerText = formatDate(boulder.date);
@@ -16,5 +21,26 @@ function fillValues(boulder) {
 
   document.querySelector('title').innerText = `${boulder.name} | Mémorial Phil`;
 
-  drawWall(boulder.holds);
+  drawWall(boulder.holds, showHolds);
 }
+
+document.querySelector('#open-menu').addEventListener('click', (e) => {
+  setTimeout(() => {
+    document.querySelector('#menu').style.display = 'block';
+  }, 100);
+});
+
+document.addEventListener('click', (e) => {
+  if (document.querySelector('#menu').style.display === 'block') {
+    setTimeout(() => {
+      document.querySelector('#menu').style.display = 'none';
+    }, 100);
+  }
+});
+
+document.querySelector('#wall').addEventListener('click', (e) => {
+  if (document.querySelector('#menu').style.display === 'none') {
+    showHolds = !showHolds;
+    drawWall(boulder.holds, showHolds);
+  }
+});
