@@ -14,13 +14,13 @@ let startsSelected = [];
 let topSelected = null;
 
 document.addEventListener('loaded-images', () => {
-  drawWall(boulder);
+  drawWall(boulder, true, false, false);
 });
 
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
-  const posX = (e.clientX - rect.left) * canvas.width / rect.width / zoom - x;
-  const posY = (e.clientY - rect.top) * canvas.height / rect.height / zoom - y;
+  const posX = (e.clientX - rect.left) * canvas.width / rect.width;
+  const posY = (e.clientY - rect.top) * canvas.height / rect.height;
 
   if (step === 1) {
     for (let i in Object.values(holdsPositions)) {
@@ -30,11 +30,17 @@ canvas.addEventListener('click', (e) => {
         if (boulder.hasOwnProperty(hold)) {
           delete boulder[hold];
           delete boulderPositions[hold];
+          if (startsSelected.includes(hold)) {
+            startsSelected.splice(startsSelected.indexOf(hold), 1);
+          }
+          if (topSelected === hold) {
+            topSelected = null;
+          }
         } else {
           boulder[hold] = 0;
           boulderPositions[hold] = pos;
         }
-        drawWall(boulder);
+        drawWall(boulder, true, false, false);
         break;
       }
     }
@@ -52,10 +58,10 @@ canvas.addEventListener('click', (e) => {
         }
         if (boulder[hold] === value) {
           boulder[hold] = 0;
-          if (step === 2) {
+          if (startsSelected.includes(hold)) {
             startsSelected.splice(startsSelected.indexOf(hold), 1);
           }
-          if (step === 3) {
+          if (topSelected === hold) {
             topSelected = null;
           }
         } else if (startsSelected.length >= (Object.keys(boulder).length > 2 ? 2 : 1) && step === 2) {
@@ -76,7 +82,7 @@ canvas.addEventListener('click', (e) => {
             topSelected = hold;
           }
         }
-        drawWall(boulder, false);
+        drawWall(boulder, false, true, step >= 3);
         break;
       }
     }
@@ -119,8 +125,11 @@ document.querySelector('#next').addEventListener('click', (e) => {
   document.querySelector('#step').innerText = `${step} / 4`;
   document.querySelector('#step-desc').innerText = DESCRIPTIONS[step - 1];
   if (step === 2) {
-    drawWall(boulder, false);
+    drawWall(boulder, false, true, false);
     document.querySelector('#back').style.display = 'block';
+  }
+  if (step === 3) {
+    drawWall(boulder, false, true, true);
   }
   if (step === 4) {
     document.querySelector('#wall').style.display = 'none';
@@ -143,21 +152,12 @@ document.querySelector('#back').addEventListener('click', (e) => {
   document.querySelector('#step').innerText = `${step} / 4`;
   document.querySelector('#step-desc').innerText = DESCRIPTIONS[step - 1];
   if (step === 1) {
-    for (let hold of startsSelected) {
-      boulder[hold] = 0;
-    }
-    startsSelected = [];
     document.querySelector('#back').style.display = 'none';
-    drawWall(boulder);
+    drawWall(boulder, true, false, false);
   }
 
   if (step === 2) {
-    if (topSelected === null) {
-      return;
-    }
-    boulder[topSelected] = 0;
-    topSelected = null;
-    drawWall(boulder, false);
+    drawWall(boulder, false, true, false);
   }
 
   if (step === 3) {

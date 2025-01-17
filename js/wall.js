@@ -27,7 +27,7 @@ const holdsPositions = {"a1":{"top":1374,"bottom":1394,"left":70,"right":90},"a1
 
 const PASTILLE_SIZE = 90;
 
-function drawWall(boulder, otherHolds = true) {
+function drawWall(boulder, otherHolds = true, start = true, top = true) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // background
@@ -56,8 +56,29 @@ function drawWall(boulder, otherHolds = true) {
   }
 
   // start
-  for (let startPosition of startPositions) {
-    testedPos = {x: startPosition.right + 10, y: startPosition.bottom + 30}
+  if (start) {
+    for (let startPosition of startPositions) {
+      testedPos = {x: startPosition.right + 10, y: startPosition.bottom + 30}
+
+      while (testPosition(boulderPositions, testedPos)) {
+        testedPos.x -= 5;
+      }
+
+      // line
+      ctx.lineWidth = PASTILLE_SIZE / 30;
+      ctx.beginPath();
+      ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
+      ctx.lineTo((startPosition.left + startPosition.right) / 2, (startPosition.top + startPosition.bottom) / 2);
+
+      ctx.stroke();
+
+      ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
+    }
+  }
+
+  // top
+  if (top) {
+    testedPos = {x: topPosition.right + 10, y: topPosition.bottom + 30}
 
     while (testPosition(boulderPositions, testedPos)) {
       testedPos.x -= 5;
@@ -67,29 +88,12 @@ function drawWall(boulder, otherHolds = true) {
     ctx.lineWidth = PASTILLE_SIZE / 30;
     ctx.beginPath();
     ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
-    ctx.lineTo((startPosition.left + startPosition.right) / 2, (startPosition.top + startPosition.bottom) / 2);
+    ctx.lineTo((topPosition.left + topPosition.right) / 2, (topPosition.top + topPosition.bottom) / 2);
 
     ctx.stroke();
 
-    ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
+    ctx.drawImage(TOP_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
   }
-
-  // top
-  testedPos = {x: topPosition.right + 10, y: topPosition.bottom + 30}
-
-  while (testPosition(boulderPositions, testedPos)) {
-    testedPos.x -= 5;
-  }
-
-  // line
-  ctx.lineWidth = PASTILLE_SIZE / 30;
-  ctx.beginPath();
-  ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
-  ctx.lineTo((topPosition.left + topPosition.right) / 2, (topPosition.top + topPosition.bottom) / 2);
-
-  ctx.stroke();
-
-  ctx.drawImage(TOP_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
   //endregion
 
   //region HOLDS
