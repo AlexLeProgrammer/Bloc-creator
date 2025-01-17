@@ -7,6 +7,9 @@ WALL_SPRITE.src = './images/wall/wall.png';
 const HOLDS_SPRITE = new Image();
 HOLDS_SPRITE.src = './images/wall/holds.png';
 
+const START_SPRITE = new Image();
+START_SPRITE.src = './images/wall/start.png';
+
 const START_DOUBLE_SPRITE = new Image();
 START_DOUBLE_SPRITE.src = './images/wall/start-double.png';
 
@@ -45,10 +48,6 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
     }
   }
 
-  /*for (pos of boulderPositions) {
-    ctx.strokeRect(pos.left, pos.top, pos.right - pos.left, pos.bottom - pos.top);
-  }*/
-
   // start
   for (let startPosition of startPositions) {
     testedPos = {x: startPosition.right + 10, y: startPosition.bottom + 30}
@@ -65,7 +64,7 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
 
     ctx.stroke();
 
-    ctx.drawImage(START_DOUBLE_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
+    ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
   }
 
   // top
