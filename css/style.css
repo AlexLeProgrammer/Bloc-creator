@@ -42,3 +42,23 @@ p {
     font-size: 4vw;
     margin: 0;
 }
+
+#filter-grades {
+    margin-top: 3.5vw;
+    display: flex;
+}
+
+#filter-grades button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0 1%;
+}
+
+#filter-grades button:first-child {
+    margin-left: 0;
+}
+
+#filter-grades button:last-child {
+    margin-right: 0;
+}

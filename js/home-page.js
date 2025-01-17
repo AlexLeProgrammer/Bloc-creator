@@ -21,22 +21,7 @@ document.querySelector('#searchbar').addEventListener('input', (e) => {
 });
 
 function filterGrades(grade) {
-  // Change the filtered grade
-  if (grade === filteredGrade) {
-    filteredGrade = null;
-  } else {
-    filteredGrade = grade;
-  }
-
-  // Set opacity of the filter buttons
-  const gradeButtons = document.querySelectorAll('#filter-grades button');
-  for (let i = 0; i < gradeButtons.length; i++) {
-    if (i === filteredGrade || filteredGrade === null) {
-      gradeButtons[i].style.opacity = 1;
-    } else {
-      gradeButtons[i].style.opacity = .2;
-    }
-  }
+  gradesInput(grade);
 
   // Apply filter
   document.dispatchEvent(new CustomEvent('boulders-search', { detail: document.querySelector('#searchbar').value }));

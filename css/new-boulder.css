@@ -24,3 +24,22 @@ header div {
     padding: 2vw 0;
     border-radius: 1vw;
 }
+
+input, textarea {
+    background-color: var(--searchbar-background);
+    border: none;
+    width: 100%;
+    border-radius: 1vw;
+    padding: 1vw 2vw;
+    outline: none;
+    font-size: 4vw;
+    resize: none;
+}
+
+input, textarea, #filter-grades {
+    margin: 0 0 4vw;
+}
+
+#fields p:first-child {
+    margin-top: 4vw;
+}

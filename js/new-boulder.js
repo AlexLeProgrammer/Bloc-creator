@@ -7,6 +7,7 @@ const DESCRIPTIONS = [
 
 let boulder = {};
 let step = 1;
+let filteredGrade = null;
 
 let boulderPositions = {};
 let startsSelected = [];
@@ -88,5 +89,10 @@ document.querySelector('#next').addEventListener('click', (e) => {
   document.querySelector('#step-desc').innerText = DESCRIPTIONS[step - 1];
   if (step === 2) {
     drawWall(boulder, false);
+  }
+  if (step === 4) {
+    document.querySelector('#wall').style.display = 'none';
+    document.querySelector('#fields').style.display = 'block';
+    document.querySelector('#next').innerText = 'Publier';
   }
 });

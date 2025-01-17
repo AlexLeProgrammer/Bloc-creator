@@ -16,10 +16,32 @@
     </header>
     <main>
         <canvas id="wall" height="1456" width="1153"></canvas>
+        <div id="fields" style="display: none">
+            <p>Nom du bloc</p>
+            <input type="text" id="name">
+            <p>Monteur</p>
+            <input type="text" id="setter">
+            <p>Cotation</p>
+            <div id="filter-grades">
+                <button onclick="gradesInput(0)"><img src="images/grades/0.png"></button>
+                <button onclick="gradesInput(1)"><img src="images/grades/1.png"></button>
+                <button onclick="gradesInput(2)"><img src="images/grades/2.png"></button>
+                <button onclick="gradesInput(3)"><img src="images/grades/3.png"></button>
+                <button onclick="gradesInput(4)"><img src="images/grades/4.png"></button>
+                <button onclick="gradesInput(5)"><img src="images/grades/5.png"></button>
+                <button onclick="gradesInput(6)"><img src="images/grades/6.png"></button>
+                <button onclick="gradesInput(7)"><img src="images/grades/7.png"></button>
+                <button onclick="gradesInput(8)"><img src="images/grades/8.png"></button>
+                <button onclick="gradesInput(9)"><img src="images/grades/9.png"></button>
+            </div>
+            <p>Description</p>
+            <textarea id="desc" rows="4"></textarea>
+        </div>
         <button id="next">Suivant</button>
     </main>
 
     <script src="js/wall.js"></script>
     <script src="js/new-boulder.js"></script>
+    <script src="js/functions.js"></script>
 </body>
 </html>

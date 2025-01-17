@@ -5,7 +5,7 @@
     border-radius: 1vw;
     padding: 1vw 2vw;
     outline: none;
-    font-size: 3.5vw;
+    font-size: 4vw;
 }
 
 #boulders a {
@@ -68,24 +68,4 @@ footer {
     display: block;
     height: 12vw;
     filter: drop-shadow(0 0 1vw rgba(0, 0, 0, .5));
-}
-
-#filter-grades {
-    margin-top: 3.5vw;
-    display: flex;
-}
-
-#filter-grades button {
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0 1%;
-}
-
-#filter-grades button:first-child {
-    margin-left: 0;
-}
-
-#filter-grades button:last-child {
-    margin-right: 0;
 }
