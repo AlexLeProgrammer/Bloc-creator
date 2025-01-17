@@ -58,7 +58,7 @@ canvas.addEventListener('click', (e) => {
           if (step === 3) {
             topSelected = null;
           }
-        } else if (startsSelected.length >= 2 && step === 2) {
+        } else if (startsSelected.length >= (Object.keys(boulder).length > 2 ? 2 : 1) && step === 2) {
           boulder[startsSelected[0]] = 0;
           startsSelected.shift();
           boulder[hold] = value;
@@ -84,6 +84,22 @@ canvas.addEventListener('click', (e) => {
 });
 
 document.querySelector('#next').addEventListener('click', (e) => {
+  document.querySelector('#error').style.display = 'none';
+  if (step === 1 && Object.keys(boulder).length < 2) {
+    document.querySelector('#error').innerText = 'Sélectionnez au moins 2 prises'
+    document.querySelector('#error').style.display = 'block';
+    return;
+  }
+  if (step === 2 && startsSelected.length === 0) {
+    document.querySelector('#error').innerText = 'Sélectionnez au moins 1 start'
+    document.querySelector('#error').style.display = 'block';
+    return;
+  }
+  if (step === 3 && topSelected === null) {
+    document.querySelector('#error').innerText = 'Sélectionnez un top'
+    document.querySelector('#error').style.display = 'block';
+    return;
+  }
   step++;
   document.querySelector('#step').innerText = `${step} / 4`;
   document.querySelector('#step-desc').innerText = DESCRIPTIONS[step - 1];
