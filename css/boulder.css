@@ -4,7 +4,22 @@ header {
     align-items: center;
 }
 
-header img {
+header div div {
+    display: flex;
+    align-items: center;
+}
+
+header a {
+    margin-right: 3vw;
+}
+
+header a img {
+    height: 5vw;
+    aspect-ratio: 1;
+    transform: scale(2);
+}
+
+header > img {
     height: 14vw;
     aspect-ratio: 1;
 }
