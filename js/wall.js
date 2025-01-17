@@ -2,9 +2,6 @@ const canvas = document.querySelector('#wall');
 const ctx = canvas.getContext('2d');
 
 let loaded = 0;
-let zoom = 1;
-let x = 0;
-let y = 0;
 
 const WALL_SPRITE = new Image();
 WALL_SPRITE.src = './images/wall/wall.png';
@@ -34,9 +31,9 @@ function drawWall(boulder, otherHolds = true) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // background
-  ctx.drawImage(WALL_SPRITE, x, y, canvas.width * zoom, canvas.height * zoom);
+  ctx.drawImage(WALL_SPRITE, 0, 0, canvas.width, canvas.height);
   if (otherHolds) {
-    ctx.drawImage(HOLDS_SPRITE, x, y, canvas.width * zoom, canvas.height * zoom);
+    ctx.drawImage(HOLDS_SPRITE, 0, 0, canvas.width, canvas.height);
   }
 
   let boulderPositions = [];
@@ -67,14 +64,14 @@ function drawWall(boulder, otherHolds = true) {
     }
 
     // line
-    ctx.lineWidth = PASTILLE_SIZE / 30 * zoom;
+    ctx.lineWidth = PASTILLE_SIZE / 30;
     ctx.beginPath();
-    ctx.moveTo((testedPos.x + PASTILLE_SIZE / 2) * zoom + x, (testedPos.y + PASTILLE_SIZE / 2) * zoom + y);
-    ctx.lineTo((startPosition.left + startPosition.right) / 2 * zoom + x, (startPosition.top + startPosition.bottom) / 2 * zoom + y);
+    ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
+    ctx.lineTo((startPosition.left + startPosition.right) / 2, (startPosition.top + startPosition.bottom) / 2);
 
     ctx.stroke();
 
-    ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x * zoom + x, testedPos.y * zoom + y, PASTILLE_SIZE * zoom, PASTILLE_SIZE * zoom);
+    ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
   }
 
   // top
@@ -85,14 +82,14 @@ function drawWall(boulder, otherHolds = true) {
   }
 
   // line
-  ctx.lineWidth = PASTILLE_SIZE / 30 * zoom;
+  ctx.lineWidth = PASTILLE_SIZE / 30;
   ctx.beginPath();
-  ctx.moveTo((testedPos.x + PASTILLE_SIZE / 2) * zoom + x, (testedPos.y + PASTILLE_SIZE / 2) * zoom + y);
-  ctx.lineTo((topPosition.left + topPosition.right) / 2 * zoom + x, (topPosition.top + topPosition.bottom) / 2 * zoom + y);
+  ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
+  ctx.lineTo((topPosition.left + topPosition.right) / 2, (topPosition.top + topPosition.bottom) / 2);
 
   ctx.stroke();
 
-  ctx.drawImage(TOP_SPRITE, testedPos.x * zoom + x, testedPos.y * zoom + y, PASTILLE_SIZE * zoom, PASTILLE_SIZE * zoom);
+  ctx.drawImage(TOP_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
   //endregion
 
   //region HOLDS
@@ -100,13 +97,21 @@ function drawWall(boulder, otherHolds = true) {
     const holdSprite = new Image();
     holdSprite.src = `./images/wall/holds/${hold}.png`;
     holdSprite.onload = () => {
-      ctx.drawImage(holdSprite, x, y, canvas.width * zoom, canvas.height * zoom);
+      ctx.drawImage(holdSprite, 0, 0, canvas.width, canvas.height);
     }
   }
   //endregion
 }
 
 function testPosition(holdsPos, testedPos) {
+  // hors ecran
+  if (testedPos.x < 0) {
+    return false;
+  }
+  if (testedPos.x + PASTILLE_SIZE > canvas.width) {
+    return true;
+  }
+
   // Définir les limites du carré
   const square = {
     top: testedPos.y,
