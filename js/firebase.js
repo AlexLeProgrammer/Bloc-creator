@@ -1,5 +1,5 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import {getDatabase, ref, onValue, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import {getDatabase, ref, onValue, set, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 
 const firebaseConfig = {
   databaseURL: "https://memorial-phil-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -9,6 +9,7 @@ export const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 
 let boulders = [];
+let nextFreeId = null;
 
 function getBoulders() {
   if (filteredGrade === null) {
@@ -38,6 +39,10 @@ onValue(ref(database, 'boulders'), (snapshot) => {
   }
 });
 
+onValue(ref(database, 'nextFreeId'), (snapshot) => {
+  nextFreeId = snapshot.val();
+});
+
 document.addEventListener("boulders-search", (e) => {
   const result = getBoulders().filter(item =>
     item.name.toLowerCase().includes(e.detail.toLowerCase()) ||
@@ -45,3 +50,21 @@ document.addEventListener("boulders-search", (e) => {
   );
   listBoulders(result);
 });
+
+document.addEventListener('publish-boulder', (e) => {
+  const id = nextFreeId;
+  set(ref(database, `boulders/${id}`), {
+    name: e.detail.name,
+    setter: e.detail.setter,
+    desc: e.detail.desc,
+    grade: e.detail.grade,
+    holds: e.detail.holds,
+    date: getCurrentDate()
+  }).then(() => {
+    update(ref(database), {
+      nextFreeId: id + 1,
+    }).then(() => {
+      window.location = `./boulder.html?id=${id}`;
+    });
+  });
+})

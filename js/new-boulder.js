@@ -127,6 +127,15 @@ document.querySelector('#next').addEventListener('click', (e) => {
     document.querySelector('#fields').style.display = 'block';
     document.querySelector('#next').innerText = 'Publier';
   }
+  if (step === 5) {
+    document.dispatchEvent(new CustomEvent('publish-boulder', { detail : {
+      name: document.querySelector('#name').value,
+      setter: document.querySelector('#setter').value,
+      desc: document.querySelector('#desc').value.replace(/(\r\n|\r|\n)/g, '<br>'),
+      grade: filteredGrade,
+      holds: boulder
+    }}));
+  }
 });
 
 document.querySelector('#back').addEventListener('click', (e) => {
