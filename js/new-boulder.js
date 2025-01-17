@@ -5,6 +5,8 @@ const DESCRIPTIONS = [
   'Entrez les informations suivantes'
 ];
 
+const boulderID = new URLSearchParams(window.location.search).get('id');
+
 let boulder = {};
 let step = 1;
 let filteredGrade = null;
@@ -137,13 +139,28 @@ document.querySelector('#next').addEventListener('click', (e) => {
     document.querySelector('#next').innerText = 'Publier';
   }
   if (step === 5) {
-    document.dispatchEvent(new CustomEvent('publish-boulder', { detail : {
-      name: document.querySelector('#name').value,
-      setter: document.querySelector('#setter').value,
-      desc: document.querySelector('#desc').value.replace(/(\r\n|\r|\n)/g, '<br>'),
-      grade: filteredGrade,
-      holds: boulder
-    }}));
+    if (boulderID === null) {
+      document.dispatchEvent(new CustomEvent('publish-boulder', {
+        detail: {
+          name: document.querySelector('#name').value,
+          setter: document.querySelector('#setter').value,
+          desc: document.querySelector('#desc').value.replace(/(\r\n|\r|\n)/g, '<br>'),
+          grade: filteredGrade,
+          holds: boulder
+        }
+      }));
+    } else {
+      document.dispatchEvent(new CustomEvent('edit-boulder', {
+        detail: {
+          name: document.querySelector('#name').value,
+          setter: document.querySelector('#setter').value,
+          desc: document.querySelector('#desc').value.replace(/(\r\n|\r|\n)/g, '<br>'),
+          grade: filteredGrade,
+          holds: boulder,
+          id: boulderID
+        }
+      }));
+    }
   }
 });
 
