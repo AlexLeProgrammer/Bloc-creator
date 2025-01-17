@@ -57,14 +57,14 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
     }
 
     // line
-    ctx.lineWidth = PASTILLE_SIZE / 30;
+    ctx.lineWidth = PASTILLE_SIZE / 30 * zoom;
     ctx.beginPath();
-    ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
-    ctx.lineTo((startPosition.left + startPosition.right) / 2, (startPosition.top + startPosition.bottom) / 2);
+    ctx.moveTo((testedPos.x + PASTILLE_SIZE / 2) * zoom + x, (testedPos.y + PASTILLE_SIZE / 2) * zoom + y);
+    ctx.lineTo((startPosition.left + startPosition.right) / 2 * zoom + x, (startPosition.top + startPosition.bottom) / 2 * zoom + y);
 
     ctx.stroke();
 
-    ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
+    ctx.drawImage(startPositions.length === 1 ? START_DOUBLE_SPRITE : START_SPRITE, testedPos.x * zoom + x, testedPos.y * zoom + y, PASTILLE_SIZE * zoom, PASTILLE_SIZE * zoom);
   }
 
   // top
@@ -75,14 +75,14 @@ function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
   }
 
   // line
-  ctx.lineWidth = PASTILLE_SIZE / 30;
+  ctx.lineWidth = PASTILLE_SIZE / 30 * zoom;
   ctx.beginPath();
-  ctx.moveTo(testedPos.x + PASTILLE_SIZE / 2, testedPos.y + PASTILLE_SIZE / 2);
-  ctx.lineTo((topPosition.left + topPosition.right) / 2, (topPosition.top + topPosition.bottom) / 2);
+  ctx.moveTo((testedPos.x + PASTILLE_SIZE / 2) * zoom + x, (testedPos.y + PASTILLE_SIZE / 2) * zoom + y);
+  ctx.lineTo((topPosition.left + topPosition.right) / 2 * zoom + x, (topPosition.top + topPosition.bottom) / 2 * zoom + y);
 
   ctx.stroke();
 
-  ctx.drawImage(TOP_SPRITE, testedPos.x, testedPos.y, PASTILLE_SIZE, PASTILLE_SIZE);
+  ctx.drawImage(TOP_SPRITE, testedPos.x * zoom + x, testedPos.y * zoom + y, PASTILLE_SIZE * zoom, PASTILLE_SIZE * zoom);
   //endregion
 
   //region HOLDS
