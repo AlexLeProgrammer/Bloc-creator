@@ -21,6 +21,8 @@ function fillValues(_boulder) {
 
   document.querySelector('title').innerText = `${boulder.name} | Mémorial Phil`;
 
+  document.querySelector('#edit').href = `./new-boulder.html?id=${id}`;
+
   drawWall(boulder.holds, showHolds);
 }
 
