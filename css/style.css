@@ -9,10 +9,11 @@
     --text-color: black;
     --searchbar-background: #eeeeef;
     --searchbar-text: #838388;
+    --accent-color: #00B628;
 }
 
 body {
-    margin: 0 4vw;
+    margin: 5vw 4vw 0;
 }
 
 button, a {
@@ -29,8 +30,15 @@ img {
 
 h1 {
     font-size: 7.5vw;
+    margin: 4vw 0;
 }
 
 h2 {
     font-size: 6vw;
+    margin: 2vw 0;
+}
+
+p {
+    font-size: 4vw;
+    margin: 0;
 }

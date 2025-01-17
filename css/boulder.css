@@ -2,7 +2,6 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 4vw;
 }
 
 header img {
@@ -17,8 +16,4 @@ header img {
 
 #wall {
     width: 100%;
-}
-
-#desc {
-    font-size: 4vw;
 }

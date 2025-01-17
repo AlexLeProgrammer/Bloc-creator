@@ -1,0 +1,26 @@
+header div {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+#step {
+    height: fit-content;
+    font-weight: bold;
+    margin-bottom: 2vw;
+}
+
+#wall {
+    width: 100%;
+}
+
+#next {
+    background-color: var(--accent-color);
+    outline: none;
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 4.5vw;
+    padding: 2vw 0;
+    border-radius: 1vw;
+}
