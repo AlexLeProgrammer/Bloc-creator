@@ -2,6 +2,9 @@ const canvas = document.querySelector('#wall');
 const ctx = canvas.getContext('2d');
 
 let loaded = 0;
+let zoom = 1;
+let x = 0;
+let y = 0;
 
 const WALL_SPRITE = new Image();
 WALL_SPRITE.src = './images/wall/wall.png';
@@ -27,7 +30,7 @@ const holdsPositions = {"a1":{"top":1374,"bottom":1394,"left":70,"right":90},"a1
 
 const PASTILLE_SIZE = 90;
 
-function drawWall(boulder, zoom = 1, x = 0, y = 0, otherHolds = true) {
+function drawWall(boulder, otherHolds = true) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // background
