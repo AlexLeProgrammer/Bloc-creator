@@ -1,7 +1,7 @@
 let boulder = {};
-let zoom = 1;
-let x = 0;
-let y = 0;
+let zoom = 1.2;
+let x = 40;
+let y = -20;
 
 document.addEventListener('loaded-images', () => {
   drawWall(boulder, zoom, x, y);
@@ -9,8 +9,8 @@ document.addEventListener('loaded-images', () => {
 
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
-  const posX = (e.clientX - rect.left) * canvas.width / rect.width;
-  const posY = (e.clientY - rect.top) * canvas.height / rect.height;
+  const posX = (e.clientX - rect.left) * canvas.width / rect.width / zoom - x;
+  const posY = (e.clientY - rect.top) * canvas.height / rect.height / zoom - y;
 
   for (let i in Object.values(holdsPositions)) {
     const pos = Object.values(holdsPositions)[i];
