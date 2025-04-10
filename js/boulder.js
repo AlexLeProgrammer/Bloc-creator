@@ -42,7 +42,7 @@ function fillValues(_boulder) {
     boulder = _boulder;
     gradeImg.src = `images/grades/${boulder.grade}.png`;
   }
-  console.log(boulder);
+
   nameText.innerText = boulder.name;
   setterText.innerText = boulder.setter;
   dateText.innerText = formatDate(boulder.date);
