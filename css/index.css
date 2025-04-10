@@ -69,3 +69,17 @@ footer {
     height: 12vw;
     filter: drop-shadow(0 0 1vw rgba(0, 0, 0, .5));
 }
+
+#random {
+    position: absolute;
+    top: 2vh;
+    right: 5vw;
+    border: none;
+    border-radius: 3vw;
+    padding: 3vw;
+    color: white;
+    background-color: #30b52e;
+    filter: drop-shadow(0 0 1vw rgba(0, 0, 0, .5));
+    font-weight: bold;
+    font-size: 3.5vw;
+}

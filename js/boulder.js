@@ -10,6 +10,12 @@ const descText = document.querySelector('#desc');
 let showHolds = true;
 let boulder = null;
 
+function reload() {
+  if (id === 'random') {
+    fillValues();
+  }
+}
+
 function fillValues(_boulder) {
   if (id === 'random') {
     boulder = {
@@ -31,14 +37,15 @@ function fillValues(_boulder) {
     const keys = Object.keys(boulder.holds);
     boulder.holds[keys[Math.floor(Math.random() * keys.length)]] = 1;
     boulder.holds[keys[Math.floor(Math.random() * keys.length)]] = 2;
+    gradeImg.src = `images/reload.svg`;
   } else {
     boulder = _boulder;
+    gradeImg.src = `images/grades/${boulder.grade}.png`;
   }
   console.log(boulder);
   nameText.innerText = boulder.name;
   setterText.innerText = boulder.setter;
   dateText.innerText = formatDate(boulder.date);
-  gradeImg.src = `images/grades/${boulder.grade}.png`;
   descText.innerHTML = boulder.desc;
 
   document.querySelector('title').innerText = `${boulder.name} | Mémorial Phil`;
