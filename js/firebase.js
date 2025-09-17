@@ -81,6 +81,7 @@ document.addEventListener('publish-boulder', (e) => {
     name: e.detail.name,
     setter: e.detail.setter,
     desc: e.detail.desc,
+    project: e.detail.project,
     grade: e.detail.grade,
     holds: e.detail.holds,
     date: getCurrentDate()
@@ -98,6 +99,7 @@ document.addEventListener('edit-boulder', (e) => {
     name: e.detail.name,
     setter: e.detail.setter,
     desc: e.detail.desc,
+    project: e.detail.project,
     grade: e.detail.grade,
     holds: e.detail.holds
   }).then(() => {

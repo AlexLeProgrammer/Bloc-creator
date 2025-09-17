@@ -18,14 +18,15 @@
             <p>
                 <span id="date"></span>
                 <span id="setter"></span>
-                <span id="project">Projet</span>
+                <span id="project" style="display: none">Projet</span>
             </p>
         </div>
         <img id="grade" src="">
-        <img src="images/projectMarker.png" class="project-marker">
+        <img src="images/projectMarker.png" class="project-marker" style="display: none">
     </header>
     <main>
         <canvas id="wall" height="1456" width="1153"></canvas>
+        <a id="validate-project" style="display: none">Valider le projet</a>
         <div id="bottom">
             <p id="desc"></p>
             <button id="open-menu"><img src="./images/menu.png"></button>
@@ -35,7 +36,6 @@
                 <a href="">Partager</a>
             </div>
         </div>
-        <a id="validate-project">Valider le projet</a>
     </main>
 
     <script src="js/functions.js"></script>

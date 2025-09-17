@@ -25,6 +25,7 @@ function fillValues(_boulder) {
 
   document.querySelector('.project-marker').style.display = boulder.project ? 'unset' : 'none';
   document.querySelector('#project').style.display = boulder.project ? 'unset' : 'none';
+  document.querySelector('#validate-project').style.display = boulder.project ? 'block' : 'none';
 
   drawWall(boulder.holds, showHolds);
 }

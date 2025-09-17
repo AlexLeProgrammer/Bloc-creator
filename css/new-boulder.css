@@ -60,3 +60,42 @@ input, textarea, #filter-grades {
     color: red;
     margin-bottom: 3vw;
 }
+
+#project-fields {
+    display: flex;
+    margin-bottom: 4vw;
+    align-items: center;
+}
+
+#is-project {
+    width: fit-content;
+    margin: 0;
+    aspect-ratio: 1;
+    height: 6vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+}
+
+#is-project:checked {
+    background-color: var(--accent-color);
+}
+
+#is-project:checked::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../images/checked.png") no-repeat;
+    background-size: 100%;
+}
+
+#project-fields label {
+    margin-left: 3vw;
+    width: 100%;
+    height: fit-content;
+    user-select: none;
+}

@@ -38,7 +38,7 @@ h2 {
     margin: 2vw 0;
 }
 
-p {
+p, label {
     font-size: 4vw;
     margin: 0;
 }

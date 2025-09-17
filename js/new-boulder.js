@@ -145,6 +145,7 @@ document.querySelector('#next').addEventListener('click', (e) => {
           name: document.querySelector('#name').value,
           setter: document.querySelector('#setter').value,
           desc: document.querySelector('#desc').value.replace(/(\r\n|\r|\n)/g, '<br>'),
+          project: document.querySelector('#is-project').checked,
           grade: filteredGrade,
           holds: boulder
         }
@@ -155,6 +156,7 @@ document.querySelector('#next').addEventListener('click', (e) => {
           name: document.querySelector('#name').value,
           setter: document.querySelector('#setter').value,
           desc: document.querySelector('#desc').value.replace(/(\r\n|\r|\n)/g, '<br>'),
+          project: document.querySelector('#is-project').checked,
           grade: filteredGrade,
           holds: boulder,
           id: boulderID
