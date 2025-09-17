@@ -23,6 +23,9 @@ function fillValues(_boulder) {
 
   document.querySelector('#edit').href = `./new-boulder.html?id=${id}`;
 
+  document.querySelector('.project-marker').style.display = boulder.project ? 'unset' : 'none';
+  document.querySelector('#project').style.display = boulder.project ? 'unset' : 'none';
+
   drawWall(boulder.holds, showHolds);
 }
 

@@ -2,6 +2,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 header div div {
@@ -29,6 +30,11 @@ header > img {
     margin-right: 3.5vw;
 }
 
+#project {
+    margin-left: 3.5vw;
+    color: red;
+}
+
 #bottom {
     display: flex;
     justify-content: space-between;
@@ -49,11 +55,11 @@ header > img {
 
 #menu {
     position: absolute;
-    right: 0;
+    right: 1.5vw;
     top: -20vw;
 
     background-color: white;
-    padding: 2vw 0;
+    padding: 0;
     border-radius: 1vw;
     box-shadow: 0 0 .5vw 1vw rgba(0,0,0,0.2);
 }
@@ -62,5 +68,29 @@ header > img {
     text-decoration: none;
     color: black;
     display: block;
-    margin: 0 5vw;
+    padding: 2vw 5vw;
+}
+
+#menu hr {
+    margin: 0;
+}
+
+.project-marker {
+    position: absolute;
+    transform: scale(1.05);
+    right: 0;
+}
+
+#validate-project {
+    display: block;
+    background-color: var(--accent-color);
+    outline: none;
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 4.5vw;
+    padding: 2vw 0;
+    border-radius: 1vw;
+    text-align: center;
+    margin-top: 5vw;
 }
