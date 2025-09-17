@@ -1,0 +1,35 @@
+#boulder-name {
+    margin-bottom: 5vw;
+}
+
+#proposed-grade {
+    aspect-ratio: 1;
+    width: calc(calc(100% - 4vw) / 10);
+    padding: 0 1vw 1vw 0;
+    margin-bottom: 4vw;
+}
+
+#filter-grades {
+    margin: 0 0 4vw;
+}
+
+#validate, #cancel {
+    background-color: var(--accent-color);
+    outline: none;
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 4.5vw;
+    padding: 2vw 0;
+    border-radius: 1vw;
+}
+
+#cancel {
+    display: block;
+    background-color: white;
+    color: var(--accent-color);
+    border: .5vw solid var(--accent-color);
+    text-align: center;
+    margin-top: 4vw;
+    text-decoration: none;
+}

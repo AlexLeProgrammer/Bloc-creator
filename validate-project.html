@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nouveau bloc | Mémorial Phil</title>
+    <title>Valider le projet | Mémorial Phil</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/new-boulder.css">
+    <link rel="stylesheet" href="css/validate-project.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="./images/icon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./images/icon/favicon-32x32.png">
@@ -14,19 +14,15 @@
 <body>
     <header>
         <div>
-            <h2>Créer un nouveau bloc</h2>
-            <p id="step">1 / 4</p>
+            <h2>Valider le projet</h2>
         </div>
-        <p id="step-desc">Sélectionnez les prises que vous allez utiliser</p>
+        <p id="boulder-name"></p>
     </header>
     <main>
-        <canvas id="wall" height="1456" width="1153"></canvas>
-        <div id="fields" style="display: none">
-            <p>Nom du bloc</p>
-            <input type="text" id="name">
-            <p>Monteur</p>
-            <input type="text" id="setter">
-            <p>Cotation</p>
+        <div id="fields">
+            <p>Cotation proposé par <span id="setter"></span></p>
+            <img id="proposed-grade" src="images/grades/0.png">
+            <p>Votre cotation</p>
             <div id="filter-grades">
                 <button onclick="gradesInput(0, false)"><img src="images/grades/0.png"></button>
                 <button onclick="gradesInput(1, false)"><img src="images/grades/1.png"></button>
@@ -39,21 +35,14 @@
                 <button onclick="gradesInput(8, false)"><img src="images/grades/8.png"></button>
                 <button onclick="gradesInput(9, false)"><img src="images/grades/9.png"></button>
             </div>
-            <p>Description</p>
-            <textarea id="desc" rows="4"></textarea>
-            <div id="project-fields">
-                <input type="checkbox" id="is-project">
-                <label for="is-project">Projet</label>
-            </div>
         </div>
         <p id="error" style="display: none"></p>
-        <button id="next">Suivant</button>
-        <button id="back" style="display: none">Retour</button>
+        <button id="validate">Valider le projet</button>
+        <a id="cancel">Annuler</a>
     </main>
 
-    <script src="js/wall.js"></script>
-    <script src="js/new-boulder.js"></script>
     <script src="js/functions.js"></script>
     <script src="js/firebase.js" type="module"></script>
+    <script src="js/validate-project.js"></script>
 </body>
 </html>

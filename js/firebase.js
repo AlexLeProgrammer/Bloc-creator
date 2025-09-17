@@ -39,12 +39,11 @@ onValue(ref(database, 'boulders'), (snapshot) => {
   }
 
   // load edit boulder
-  if (typeof boulderID !== 'undefined') {
+  if (typeof boulderID !== 'undefined' && typeof fillValues === 'undefined') {
     if (boulderID === null) {
       return;
     }
     const _boulder = snapshot.val()[boulderID];
-    console.log(_boulder);
     boulder = _boulder.holds;
     document.querySelector('#name').value = _boulder.name;
     document.querySelector('#setter').value = _boulder.setter;
@@ -60,6 +59,15 @@ onValue(ref(database, 'boulders'), (snapshot) => {
         topSelected = hold;
       }
     }
+  }
+
+  // load validate boulder values
+  if (typeof boulderID !== 'undefined' && fillValues !== 'undefined') {
+    if (boulderID === null) {
+      return;
+    }
+    const _boulder = snapshot.val()[boulderID];
+    fillValues(_boulder);
   }
 });
 
@@ -102,6 +110,15 @@ document.addEventListener('edit-boulder', (e) => {
     project: e.detail.project,
     grade: e.detail.grade,
     holds: e.detail.holds
+  }).then(() => {
+    window.location = `./boulder.html?id=${e.detail.id}`;
+  });
+});
+
+document.addEventListener('validate-project', (e) => {
+  update(ref(database, `boulders/${e.detail.id}`), {
+    project: false,
+    grade: e.detail.grade,
   }).then(() => {
     window.location = `./boulder.html?id=${e.detail.id}`;
   });

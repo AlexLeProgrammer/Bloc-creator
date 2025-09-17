@@ -22,6 +22,7 @@ function fillValues(_boulder) {
   document.querySelector('title').innerText = `${boulder.name} | Mémorial Phil`;
 
   document.querySelector('#edit').href = `./new-boulder.html?id=${id}`;
+  document.querySelector('#validate-project').href = `./validate-project.html?id=${id}`;
 
   document.querySelector('.project-marker').style.display = boulder.project ? 'unset' : 'none';
   document.querySelector('#project').style.display = boulder.project ? 'unset' : 'none';
