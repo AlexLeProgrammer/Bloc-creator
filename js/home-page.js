@@ -4,7 +4,6 @@ let filteredGrade = null;
 
 function listBoulders(boulders) {
   bouldersList.innerHTML = '';
-  console.log(boulders);
   for (let boulder of boulders) {
     bouldersList.innerHTML += `<a href="boulder.html?id=${boulder.id}">
         <img src="images/grades/${boulder.grade}.png">
