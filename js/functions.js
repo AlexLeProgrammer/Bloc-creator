@@ -34,3 +34,61 @@ function getCurrentDate() {
 
   return `${yyyy}-${mm}-${dd}`;
 }
+
+// Profile image functionality
+function getUserAscents() {
+  // Use the global function from my-ascents.js module if available
+  if (typeof window.getUserAscents === 'function') {
+    return window.getUserAscents();
+  }
+  return [];
+}
+
+function getHighestGradeClimbed(allBoulders) {
+  const ascents = getUserAscents();
+
+  if (ascents.length === 0) {
+    return 0;
+  }
+
+  let highestGrade = 0;
+
+  for (let ascent of ascents) {
+    const boulder = allBoulders.find(b => b.id === ascent.id);
+    if (boulder && boulder.grade > highestGrade) {
+      highestGrade = boulder.grade;
+    }
+  }
+
+  return highestGrade || 0;
+}
+
+function getProfileImage(grade) {
+  const profileMap = {
+    0: 'images/profile/4.svg',
+    1: 'images/profile/5.svg',
+    2: 'images/profile/5c.svg',
+    3: 'images/profile/6a.svg',
+    4: 'images/profile/6b.svg',
+    5: 'images/profile/6c.svg',
+    6: 'images/profile/7a.svg',
+    7: 'images/profile/7b.svg',
+    8: 'images/profile/7c.svg',
+    9: 'images/profile/8a.svg'
+  };
+
+  if (grade >= 10) {
+    return 'images/profile/8a.svg';
+  }
+
+  return profileMap[grade] || 'images/profile/4.svg';
+}
+
+function updateProfileImage(allBoulders) {
+  const profileImg = document.querySelector('#profile-image');
+  if (profileImg && allBoulders) {
+    const highestGrade = getHighestGradeClimbed(allBoulders);
+    profileImg.src = getProfileImage(highestGrade);
+    profileImg.title = `Niveau maximum: ${highestGrade} - Mes ascensions`;
+  }
+}

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache" />
     <title>| Mémorial Phil</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/boulder.css">
@@ -11,10 +13,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./images/icon/favicon-16x16.png">
     <link rel="manifest" href="./images/icon/site.webmanifest">
 </head>
+
 <body>
     <header>
         <div>
-            <div><a href="./"><img src="./images/home.png"></a><h2 id="name"></h2></div>
+            <div><a href="./"><img src="./images/home.png"></a>
+                <h2 id="name"></h2>
+            </div>
             <p>
                 <span id="date"></span>
                 <span id="setter"></span>
@@ -27,20 +32,28 @@
     <main>
         <canvas id="wall" height="1456" width="1153"></canvas>
         <a id="validate-project" style="display: none">Valider le projet</a>
+        <a id="add-to-ascents">Ajouter aux ascensions</a>
+        <a id="delete-ascent">Supprimer l'ascension</a>
         <div id="bottom">
             <p id="desc"></p>
-            <button id="open-menu"><img src="./images/menu.png"></button>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button id="open-menu"><img src="./images/menu.png"></button>
+            </div>
             <div id="menu" style="display: none">
                 <a href="" id="edit">Modifier</a>
                 <hr>
                 <a href="">Partager</a>
+                <hr>
+                <a href="my-ascents.html">Mes ascensions</a>
             </div>
         </div>
     </main>
 
     <script src="js/functions.js"></script>
+    <script src="js/my-ascents.js" type="module"></script>
     <script src="js/firebase.js" type="module"></script>
     <script src="js/boulder.js"></script>
     <script src="js/wall.js"></script>
 </body>
+
 </html>

@@ -1,5 +1,5 @@
-import {initializeApp} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import {getDatabase, ref, onValue, set, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 
 const firebaseConfig = {
   databaseURL: "https://memorial-phil-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -32,6 +32,10 @@ onValue(ref(database, 'boulders'), (snapshot) => {
   if (typeof listBoulders !== 'undefined') {
     listBoulders(getBoulders());
   }
+
+  // Make boulders globally accessible and emit event
+  window.boulders = boulders;
+  document.dispatchEvent(new CustomEvent('boulders-loaded', { detail: boulders }));
 
   // load boulder values
   if (typeof id !== 'undefined') {
@@ -123,3 +127,54 @@ document.addEventListener('validate-project', (e) => {
     window.location = `./boulder.html?id=${e.detail.id}`;
   });
 });
+
+// Ascents management
+export function saveUserAscents(uuid, ascents) {
+  return set(ref(database, `ascents/${uuid}`), ascents);
+}
+
+export function getUserAscentsFromFirebase(uuid, callback) {
+  onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
+    const ascents = snapshot.val() || [];
+    callback(ascents);
+  });
+}
+
+export function addAscentToFirebase(uuid, boulderId) {
+  return new Promise((resolve) => {
+    onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
+      const ascents = snapshot.val() || [];
+      const existingAscent = ascents.find(ascent => ascent.id === boulderId);
+
+      if (!existingAscent) {
+        ascents.push({
+          id: boulderId,
+          date: getCurrentDate()
+        });
+
+        set(ref(database, `ascents/${uuid}`), ascents).then(() => {
+          resolve(true);
+        });
+      } else {
+        resolve(false);
+      }
+    }, { once: true });
+  });
+}
+
+export function deleteAscentFromFirebase(uuid, boulderId) {
+  return new Promise((resolve) => {
+    onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
+      const ascents = snapshot.val() || [];
+      const filteredAscents = ascents.filter(ascent => ascent.id !== boulderId);
+
+      if (filteredAscents.length < ascents.length) {
+        set(ref(database, `ascents/${uuid}`), filteredAscents).then(() => {
+          resolve(true);
+        });
+      } else {
+        resolve(false);
+      }
+    }, { once: true });
+  });
+}

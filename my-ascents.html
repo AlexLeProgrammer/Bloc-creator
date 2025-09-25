@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="cache-control" content="no-cache" />
-    <title>Mémorial Phil</title>
+    <title>Mes Ascensions | Mémorial Phil</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
 
@@ -16,12 +16,10 @@
 
 <body>
     <header>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3vw;">
-            <h1 style="margin: 0;">Mémorial Phil</h1>
-            <a href="my-ascents.html" id="profile-link">
-                <img id="profile-image" src="images/profile/4.svg"
-                    style="width: 12w; height: 12vw; border-radius: 0; cursor: pointer;" title="Mes ascensions">
-            </a>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <a href="./"><img src="./images/home.png"
+                    style="height: 5vw; aspect-ratio: 1; transform: scale(2); margin-right: 3vw;"></a>
+            <h1>Mes Ascensions</h1>
         </div>
         <input type="text" placeholder="Rechercher" id="searchbar">
         <div id="filter-grades">
@@ -38,6 +36,10 @@
         </div>
     </header>
     <main>
+        <div id="no-ascents" style="display: none; text-align: center; padding: 50px; color: #666;">
+            <p>Aucune ascension enregistrée pour le moment.</p>
+            <p>Ajoutez vos premières ascensions depuis les pages de blocs !</p>
+        </div>
         <div id="boulders"></div>
     </main>
     <footer>
@@ -45,23 +47,7 @@
     </footer>
     <script src="js/functions.js"></script>
     <script src="js/my-ascents.js" type="module"></script>
-    <script src="js/home-page.js"></script>
     <script src="js/firebase.js" type="module"></script>
-    <script>
-        // Profile image functionality is now in functions.js
-
-        // Listen for boulders loaded event
-        document.addEventListener('boulders-loaded', (e) => {
-            updateProfileImage(e.detail);
-        });
-
-        // Listen for ascents loaded event to update profile
-        document.addEventListener('ascents-loaded', () => {
-            if (window.boulders) {
-                updateProfileImage(window.boulders);
-            }
-        });
-    </script>
 </body>
 
 </html>
