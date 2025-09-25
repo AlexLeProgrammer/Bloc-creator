@@ -1,5 +1,7 @@
-import {initializeApp} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import {getDatabase, ref, onValue, set, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+import { getDatabase, ref, onValue, set, update, get } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+
+import { getDeviceUUID } from './my-ascents.js';
 
 const firebaseConfig = {
   databaseURL: "https://memorial-phil-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -32,6 +34,10 @@ onValue(ref(database, 'boulders'), (snapshot) => {
   if (typeof listBoulders !== 'undefined') {
     listBoulders(getBoulders());
   }
+
+  // Make boulders globally accessible and emit event
+  window.boulders = boulders;
+  document.dispatchEvent(new CustomEvent('boulders-loaded', { detail: boulders }));
 
   // load boulder values
   if (typeof id !== 'undefined') {
@@ -123,3 +129,52 @@ document.addEventListener('validate-project', (e) => {
     window.location = `./boulder.html?id=${e.detail.id}`;
   });
 });
+
+export function getUserAscentsFromFirebase(uuid, callback) {
+  onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
+    const ascents = snapshot.val() || [];
+    callback(ascents);
+  });
+}
+
+function addAscent(boulderId) {
+  const uuid = getDeviceUUID();
+  return new Promise(async (resolve) => {
+    try {
+      const snapshot = await get(ref(database, `ascents/${uuid}`));
+      const ascents = snapshot.val() || [];
+
+      ascents.push({
+        id: boulderId,
+        date: getCurrentDate()
+      });
+
+      await set(ref(database, `ascents/${uuid}`), ascents);
+      resolve(true);
+    } catch (error) {
+      console.error('Error adding ascent:', error);
+      resolve(false);
+    }
+  });
+}
+
+function deleteAscent(boulderId) {
+  const uuid = getDeviceUUID();
+  return new Promise(async (resolve) => {
+    try {
+      const snapshot = await get(ref(database, `ascents/${uuid}`));
+      const ascents = snapshot.val() || [];
+      const filteredAscents = ascents.filter(ascent => ascent.id !== boulderId);
+
+      await set(ref(database, `ascents/${uuid}`), filteredAscents);
+      resolve(true);
+    } catch (error) {
+      console.error('Error deleting ascent:', error);
+      resolve(false);
+    }
+  });
+}
+
+// Export functions for use in other scripts
+window.addAscent = addAscent;
+window.deleteAscent = deleteAscent;

@@ -51,3 +51,77 @@ document.querySelector('#wall').addEventListener('click', (e) => {
     drawWall(boulder.holds, showHolds);
   }
 });
+
+// Add to ascents functionality
+document.querySelector('#add-to-ascents').addEventListener('click', (e) => {
+  e.stopPropagation();
+
+  if (typeof addAscent !== 'undefined') {
+    const success = addAscent(parseInt(id));
+    if (success) {
+      updateButtonStates();
+    }
+  }
+});
+
+// Delete ascent functionality
+document.querySelector('#delete-ascent').addEventListener('click', (e) => {
+  e.stopPropagation();
+
+  if (typeof deleteAscent !== 'undefined') {
+    const success = deleteAscent(parseInt(id));
+
+    if (success) {
+      updateButtonStates();
+    }
+  }
+});
+
+// Update button states based on current ascents
+function updateButtonStates() {
+  const addButton = document.querySelector('#add-to-ascents');
+  const deleteButton = document.querySelector('#delete-ascent');
+
+  if (!addButton || !deleteButton) {
+    return;
+  }
+
+  if (typeof getUserAscents !== 'undefined' && id && boulder) {
+    if (boulder.project) {
+      // For projects, hide both ascent buttons
+      addButton.style.display = 'none';
+      deleteButton.style.display = 'none';
+    } else {
+      // For non-projects, check ascent status
+      const ascents = getUserAscents();
+      const hasAscent = ascents.some(ascent => ascent.id === parseInt(id));
+
+      if (hasAscent) {
+        // Boulder is in ascents - show delete button, hide add button
+        addButton.style.display = 'none';
+        deleteButton.style.display = 'block';
+      } else {
+        // Boulder is not in ascents - show add button, hide delete button  
+        addButton.style.display = 'block';
+        deleteButton.style.display = 'none';
+      }
+    }
+  } else {
+    // If no data available, hide both buttons
+    addButton.style.display = 'none';
+    deleteButton.style.display = 'none';
+  }
+}
+
+// Check ascent status when boulder data is loaded
+const originalFillValues = fillValues;
+fillValues = function (_boulder) {
+  originalFillValues(_boulder);
+  // Call updateButtonStates after a short delay to ensure my-ascents.js is loaded
+  updateButtonStates();
+};
+
+// Listen for when ascents are loaded from Firebase
+document.addEventListener('ascents-loaded', () => {
+  updateButtonStates();
+});
