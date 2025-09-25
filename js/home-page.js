@@ -5,7 +5,12 @@ let filteredGrade = null;
 function listBoulders(boulders) {
   bouldersList.innerHTML = '';
   for (let boulder of boulders) {
-    bouldersList.innerHTML += `<a href="boulder.html?id=${boulder.id}">
+    // Check if this boulder is in user's ascents
+    const userAscents = window.getUserAscents ? window.getUserAscents() : [];
+    const isCompleted = userAscents.some(ascent => ascent.id === boulder.id);
+    const completedClass = isCompleted ? 'completed-ascent' : '';
+
+    bouldersList.innerHTML += `<a href="boulder.html?id=${boulder.id}"${completedClass ? ` class="${completedClass}"` : ''}>
         <img src="images/grades/${boulder.grade}.png">
         <img class="project-marker" src="images/projectMarker.png" ${boulder.project ? '' : 'style="display: none"'}>
         <div>
@@ -27,3 +32,12 @@ function filterGrades(grade) {
   // Apply filter
   document.dispatchEvent(new CustomEvent('boulders-search', { detail: document.querySelector('#searchbar').value }));
 }
+
+// Listen for when ascents are loaded from Firebase to refresh the boulder list
+document.addEventListener('ascents-loaded', () => {
+  // Refresh the boulder list to show updated completion status
+  if (window.boulders && typeof listBoulders !== 'undefined') {
+    // Re-apply current search/filter
+    document.dispatchEvent(new CustomEvent('boulders-search', { detail: document.querySelector('#searchbar').value }));
+  }
+});
