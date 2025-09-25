@@ -53,26 +53,26 @@ document.querySelector('#wall').addEventListener('click', (e) => {
 });
 
 // Add to ascents functionality
-document.querySelector('#add-to-ascents').addEventListener('click', async (e) => {
+document.querySelector('#add-to-ascents').addEventListener('click', (e) => {
   e.stopPropagation();
 
   if (typeof addAscent !== 'undefined') {
-    const success = await addAscent(parseInt(id));
+    const success = addAscent(parseInt(id));
     if (success) {
-      setTimeout(updateButtonStates, 100);
+      updateButtonStates();
     }
   }
 });
 
 // Delete ascent functionality
-document.querySelector('#delete-ascent').addEventListener('click', async (e) => {
+document.querySelector('#delete-ascent').addEventListener('click', (e) => {
   e.stopPropagation();
 
   if (typeof deleteAscent !== 'undefined') {
-    const success = await deleteAscent(parseInt(id));
+    const success = deleteAscent(parseInt(id));
 
     if (success) {
-      setTimeout(updateButtonStates, 100);
+      updateButtonStates();
     }
   }
 });
@@ -118,10 +118,10 @@ const originalFillValues = fillValues;
 fillValues = function (_boulder) {
   originalFillValues(_boulder);
   // Call updateButtonStates after a short delay to ensure my-ascents.js is loaded
-  setTimeout(updateButtonStates, 200);
+  updateButtonStates();
 };
 
 // Listen for when ascents are loaded from Firebase
 document.addEventListener('ascents-loaded', () => {
-  setTimeout(updateButtonStates, 100);
+  updateButtonStates();
 });

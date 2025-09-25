@@ -1,5 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { getDatabase, ref, onValue, set, update, get } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+
+import { getDeviceUUID } from './my-ascents.js';
 
 const firebaseConfig = {
   databaseURL: "https://memorial-phil-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -128,11 +130,6 @@ document.addEventListener('validate-project', (e) => {
   });
 });
 
-// Ascents management
-export function saveUserAscents(uuid, ascents) {
-  return set(ref(database, `ascents/${uuid}`), ascents);
-}
-
 export function getUserAscentsFromFirebase(uuid, callback) {
   onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
     const ascents = snapshot.val() || [];
@@ -140,41 +137,44 @@ export function getUserAscentsFromFirebase(uuid, callback) {
   });
 }
 
-export function addAscentToFirebase(uuid, boulderId) {
-  return new Promise((resolve) => {
-    onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
+function addAscent(boulderId) {
+  const uuid = getDeviceUUID();
+  return new Promise(async (resolve) => {
+    try {
+      const snapshot = await get(ref(database, `ascents/${uuid}`));
       const ascents = snapshot.val() || [];
-      const existingAscent = ascents.find(ascent => ascent.id === boulderId);
 
-      if (!existingAscent) {
-        ascents.push({
-          id: boulderId,
-          date: getCurrentDate()
-        });
+      ascents.push({
+        id: boulderId,
+        date: getCurrentDate()
+      });
 
-        set(ref(database, `ascents/${uuid}`), ascents).then(() => {
-          resolve(true);
-        });
-      } else {
-        resolve(false);
-      }
-    }, { once: true });
+      await set(ref(database, `ascents/${uuid}`), ascents);
+      resolve(true);
+    } catch (error) {
+      console.error('Error adding ascent:', error);
+      resolve(false);
+    }
   });
 }
 
-export function deleteAscentFromFirebase(uuid, boulderId) {
-  return new Promise((resolve) => {
-    onValue(ref(database, `ascents/${uuid}`), (snapshot) => {
+function deleteAscent(boulderId) {
+  const uuid = getDeviceUUID();
+  return new Promise(async (resolve) => {
+    try {
+      const snapshot = await get(ref(database, `ascents/${uuid}`));
       const ascents = snapshot.val() || [];
       const filteredAscents = ascents.filter(ascent => ascent.id !== boulderId);
 
-      if (filteredAscents.length < ascents.length) {
-        set(ref(database, `ascents/${uuid}`), filteredAscents).then(() => {
-          resolve(true);
-        });
-      } else {
-        resolve(false);
-      }
-    }, { once: true });
+      await set(ref(database, `ascents/${uuid}`), filteredAscents);
+      resolve(true);
+    } catch (error) {
+      console.error('Error deleting ascent:', error);
+      resolve(false);
+    }
   });
 }
+
+// Export functions for use in other scripts
+window.addAscent = addAscent;
+window.deleteAscent = deleteAscent;

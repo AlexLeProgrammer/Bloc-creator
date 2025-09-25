@@ -1,5 +1,5 @@
 // Import Firebase functions
-import { getUserAscentsFromFirebase, addAscentToFirebase, deleteAscentFromFirebase } from './firebase.js';
+import { getUserAscentsFromFirebase } from './firebase.js';
 
 // Only initialize if we're on the my-ascents page
 let bouldersList = null;
@@ -46,42 +46,6 @@ function loadUserAscents() {
         // Dispatch event for other parts of the app
         document.dispatchEvent(new CustomEvent('ascents-loaded'));
     });
-}
-
-// Add an ascent for the current device
-async function addAscent(boulderId) {
-    const uuid = getDeviceUUID();
-
-    try {
-        const success = await addAscentToFirebase(uuid, boulderId);
-        if (success) {
-            // Reload ascents from Firebase
-            loadUserAscents();
-            return true;
-        }
-        return false; // Already exists
-    } catch (error) {
-        console.error('Error adding ascent:', error);
-        return false;
-    }
-}
-
-// Delete an ascent for the current device
-async function deleteAscent(boulderId) {
-    const uuid = getDeviceUUID();
-
-    try {
-        const success = await deleteAscentFromFirebase(uuid, boulderId);
-        if (success) {
-            // Reload ascents from Firebase
-            loadUserAscents();
-            return true;
-        }
-        return false; // Not found
-    } catch (error) {
-        console.error('Error deleting ascent:', error);
-        return false;
-    }
 }
 
 // Get completed boulders with their completion dates
@@ -185,6 +149,6 @@ document.addEventListener('boulders-loaded', (e) => {
 });
 
 // Export functions for use in other scripts
-window.addAscent = addAscent;
-window.deleteAscent = deleteAscent;
+export { getDeviceUUID };
+
 window.getUserAscents = getUserAscents;
