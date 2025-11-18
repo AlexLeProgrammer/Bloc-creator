@@ -77,7 +77,7 @@ function loadUserAscents() {
 
             for (let boulder of completedBoulders) {
                 bouldersList.innerHTML += `<a href="boulder.html?id=${boulder.id}">
-            <img src="images/grades/${boulder.grade}.png">
+            <img src="images/grades/${boulder.grade}.svg">
             <img class="project-marker" src="images/projectMarker.png" ${boulder.project ? '' : 'style="display: none"'}>
             <div>
                 <p class="title">${boulder.name}</p>
