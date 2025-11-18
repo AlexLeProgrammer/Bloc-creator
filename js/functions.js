@@ -63,32 +63,10 @@ function getHighestGradeClimbed(allBoulders) {
   return highestGrade || 0;
 }
 
-function getProfileImage(grade) {
-  const profileMap = {
-    0: 'images/profile/4.svg',
-    1: 'images/profile/5.svg',
-    2: 'images/profile/5c.svg',
-    3: 'images/profile/6a.svg',
-    4: 'images/profile/6b.svg',
-    5: 'images/profile/6c.svg',
-    6: 'images/profile/7a.svg',
-    7: 'images/profile/7b.svg',
-    8: 'images/profile/7c.svg',
-    9: 'images/profile/8a.svg'
-  };
-
-  if (grade >= 10) {
-    return 'images/profile/8a.svg';
-  }
-
-  return profileMap[grade] || 'images/profile/4.svg';
-}
-
 function updateProfileImage(allBoulders) {
   const profileImg = document.querySelector('#profile-image');
   if (profileImg && allBoulders) {
     const highestGrade = getHighestGradeClimbed(allBoulders);
-    profileImg.src = getProfileImage(highestGrade);
-    profileImg.title = `Niveau maximum: ${highestGrade} - Mes ascensions`;
+    profileImg.src = `images/profile/${highestGrade}.svg`;
   }
 }
