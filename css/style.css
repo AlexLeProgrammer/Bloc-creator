@@ -54,6 +54,10 @@ a {
     display: flex;
 }
 
+#filter-grades button img {
+    width: 100vw;
+}
+
 #filter-grades button {
     border: none;
     background: none;

@@ -55,6 +55,7 @@ onValue(ref(database, 'boulders'), (snapshot) => {
     document.querySelector('#setter').value = _boulder.setter;
     gradesInput(_boulder.grade);
     document.querySelector('#desc').value = _boulder.desc.replace('<br>', '\n');
+    document.querySelector('#is-project').checked = !!_boulder.project;
     drawWall(boulder, true, false, false);
 
     for (let hold of Object.keys(boulder)) {

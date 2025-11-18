@@ -6,9 +6,11 @@ let boulder = null;
 function fillValues(_boulder) {
   boulder = _boulder;
 
+  gradesInput(boulder.grade);
+
   document.querySelector('#boulder-name').innerText = boulder.name;
   document.querySelector('#setter').innerText = boulder.setter;
-  document.querySelector('#proposed-grade').src = `images/grades/${boulder.grade}.png`;
+  document.querySelector('#proposed-grade').src = `images/grades/${boulder.grade}.svg`;
 
   document.querySelector('#cancel').href = `./boulder.html?id=${boulderID}`;
 }

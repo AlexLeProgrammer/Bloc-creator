@@ -11,7 +11,6 @@ if (window.location.pathname.includes('my-ascents') || document.querySelector('#
     noAscentsMessage = document.querySelector('#no-ascents');
 }
 
-let filteredGrade = null;
 let userAscents = [];
 let allBoulders = [];
 
@@ -30,25 +29,6 @@ function getUserAscents() {
     return userAscents;
 }
 
-// Load user ascents from Firebase
-function loadUserAscents() {
-    const uuid = getDeviceUUID();
-    getUserAscentsFromFirebase(uuid, (ascents) => {
-        userAscents = ascents || [];
-        // Update UI if we're on the my-ascents page
-        if (bouldersList && allBoulders.length > 0) {
-            listAscents(getFilteredAscents());
-        }
-        // Update profile image if function exists
-        if (typeof updateProfileImage !== 'undefined' && allBoulders.length > 0) {
-            updateProfileImage(allBoulders);
-        }
-        // Dispatch event for other parts of the app
-        document.dispatchEvent(new CustomEvent('ascents-loaded'));
-    });
-}
-
-// Get completed boulders with their completion dates
 function getCompletedBoulders() {
     userAscents = getUserAscents();
 
@@ -72,72 +52,48 @@ function getCompletedBoulders() {
     return completedBoulders.sort((a, b) => new Date(b.completedDate) - new Date(a.completedDate));
 }
 
-// Filter boulders by grade
-function getFilteredAscents() {
-    const completedBoulders = getCompletedBoulders();
+// Load user ascents from Firebase
+function loadUserAscents() {
+    const uuid = getDeviceUUID();
+    getUserAscentsFromFirebase(uuid, (ascents) => {
+        userAscents = ascents || [];
+        // Update UI if we're on the my-ascents page
+        if (bouldersList && allBoulders.length > 0) {
+            const completedBoulders = getCompletedBoulders();
 
-    if (filteredGrade === null) {
-        return completedBoulders;
-    }
-    return completedBoulders.filter(item => item.grade === filteredGrade);
-}
+            // Only run if we're on the my-ascents page
+            if (!bouldersList || !noAscentsMessage) {
+                return;
+            }
 
-// List ascents in the UI
-function listAscents(ascents) {
-    // Only run if we're on the my-ascents page
-    if (!bouldersList || !noAscentsMessage) {
-        return;
-    }
+            bouldersList.innerHTML = '';
 
-    bouldersList.innerHTML = '';
+            if (completedBoulders.length === 0) {
+                noAscentsMessage.style.display = 'block';
+                return;
+            }
 
-    if (ascents.length === 0) {
-        noAscentsMessage.style.display = 'block';
-        return;
-    }
+            noAscentsMessage.style.display = 'none';
 
-    noAscentsMessage.style.display = 'none';
-
-    for (let boulder of ascents) {
-        bouldersList.innerHTML += `<a href="boulder.html?id=${boulder.id}">
-            <img src="images/grades/${boulder.grade}.png">
+            for (let boulder of completedBoulders) {
+                bouldersList.innerHTML += `<a href="boulder.html?id=${boulder.id}">
+            <img src="images/grades/${boulder.grade}.svg">
             <img class="project-marker" src="images/projectMarker.png" ${boulder.project ? '' : 'style="display: none"'}>
             <div>
                 <p class="title">${boulder.name}</p>
                 <p class="routesetter">${boulder.setter}</p>
             </div>
-            <p class="date" style="color: #4CAF50; font-weight: bold;">Réalisé: ${formatDate(boulder.completedDate)}</p>
+            <p class="date" style="color: #4CAF50; font-weight: bold;">${formatDate(boulder.completedDate)}</p>
         </a>`;
-    }
-}
-
-// Search functionality - only on my-ascents page
-if (document.querySelector('#searchbar') && (window.location.pathname.includes('my-ascents') || document.querySelector('#no-ascents'))) {
-    document.querySelector('#searchbar').addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const completedBoulders = getFilteredAscents();
-
-        const result = completedBoulders.filter(item =>
-            item.name.toLowerCase().includes(searchTerm) ||
-            item.setter.toLowerCase().includes(searchTerm)
-        );
-        listAscents(result);
+            }
+        }
+        // Update profile image if function exists
+        if (typeof updateProfileImage !== 'undefined' && allBoulders.length > 0) {
+            updateProfileImage(allBoulders);
+        }
+        // Dispatch event for other parts of the app
+        document.dispatchEvent(new CustomEvent('ascents-loaded'));
     });
-}
-
-// Grade filtering
-function filterGrades(grade) {
-    gradesInput(grade);
-
-    // Apply filter and search
-    const searchTerm = document.querySelector('#searchbar').value.toLowerCase();
-    const filteredAscents = getFilteredAscents();
-
-    const result = filteredAscents.filter(item =>
-        item.name.toLowerCase().includes(searchTerm) ||
-        item.setter.toLowerCase().includes(searchTerm)
-    );
-    listAscents(result);
 }
 
 // Listen for when boulders are loaded from Firebase
