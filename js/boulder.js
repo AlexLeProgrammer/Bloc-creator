@@ -16,7 +16,7 @@ function fillValues(_boulder) {
   nameText.innerText = boulder.name;
   setterText.innerText = boulder.setter;
   dateText.innerText = formatDate(boulder.date);
-  gradeImg.src = `images/grades/${boulder.grade}.png`;
+  gradeImg.src = `images/grades/${boulder.grade}.svg`;
   descText.innerHTML = boulder.desc;
 
   document.querySelector('title').innerText = `${boulder.name} | Mémorial Phil`;
@@ -117,7 +117,6 @@ function updateButtonStates() {
 const originalFillValues = fillValues;
 fillValues = function (_boulder) {
   originalFillValues(_boulder);
-  // Call updateButtonStates after a short delay to ensure my-ascents.js is loaded
   updateButtonStates();
 };
 
