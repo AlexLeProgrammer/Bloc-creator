@@ -35,17 +35,8 @@ function getCurrentDate() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-// Profile image functionality
-function getUserAscents() {
-  // Use the global function from my-ascents.js module if available
-  if (typeof window.getUserAscents === 'function') {
-    return window.getUserAscents();
-  }
-  return [];
-}
-
 function getHighestGradeClimbed(allBoulders) {
-  const ascents = getUserAscents();
+  const ascents = window.getUserAscents();
 
   if (ascents.length === 0) {
     return 0;
